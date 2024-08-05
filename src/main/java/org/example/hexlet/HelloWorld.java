@@ -12,6 +12,13 @@ public class HelloWorld {
         app.get("/users", ctx -> ctx.result("GET /users"));
 	    app.post("/users", ctx -> ctx.result("POST /users"));
 
+        app.get("/users/{id}/post/{postId}", ctx -> {
+            var id = ctx.pathParamAsClass("id", Integer.class).getOrDefault(1);
+            var postId = ctx.pathParamAsClass("postId", Integer.class).getOrDefault(1);
+            ctx.result("id: " + id + "\n"
+                    + "post id:" + postId);
+        });
+
         app.get("/hello", ctx -> {
             var greeting = "Hello, " + ctx.queryParamAsClass("name", String.class).getOrDefault("World") + "!";
             ctx.result(greeting);
